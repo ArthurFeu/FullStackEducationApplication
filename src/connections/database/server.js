@@ -1,11 +1,13 @@
 import express from 'express';
 import studentsRouter from '../routes/students.js';
+import coursesRouter from '../routes/courses.js';
 
 const app = express();
 const PORT = 5000;
 
 app.use(express.json());
 app.use('/students', studentsRouter);
+app.use('/courses', coursesRouter);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
