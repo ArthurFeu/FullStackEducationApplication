@@ -5,13 +5,13 @@ const router = express.Router();
 
 // CREATE - Cadastrar novo curso
 router.post('/', async (req, res) => {
-	const { name, description, code, school } = req.body;
+	const { name, description, code, school_id } = req.body;
 	try {
 		const [result] = await pool.query(
-			'INSERT INTO `ensinosuperiordb`.`courses` (`name`, `description`, `code`, `school`) VALUES (?, ?, ?, ?)',
-			[name, description, code, school]
+			'INSERT INTO `ensinosuperiordb`.`courses` (`name`, `description`, `code`, `school_id`) VALUES (?, ?, ?, ?)',
+			[name, description, code, school_id]
 		);
-		res.status(201).json({ id: result.insertId, name, description, code, school });
+		res.status(201).json({ id: result.insertId, name, description, code, school_id });
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
@@ -45,14 +45,14 @@ router.get('/:id', async (req, res) => {
 // UPDATE - Atualizar um curso
 router.put('/:id', async (req, res) => {
 	const { id } = req.params;
-	const { name, description, code, school } = req.body;
+	const { name, description, code, school_id } = req.body;
 	try {
 		const [result] = await pool.query(
-			'UPDATE `ensinosuperiordb`.`courses` SET `name` = ?, `description` = ?, `code` = ?, `school` = ? WHERE `id` = ?',
-			[name, description, code, school, id]
+			'UPDATE `ensinosuperiordb`.`courses` SET `name` = ?, `description` = ?, `code` = ?, `school_id` = ? WHERE `id` = ?',
+			[name, description, code, school_id, id]
 		);
 		if (result.affectedRows) {
-			res.json({ id, name, description, code, school });
+			res.json({ id, name, description, code, school_id });
 		} else {
 			res.status(404).json({ error: 'Curso não encontrado' });
 		}
