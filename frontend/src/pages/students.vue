@@ -4,7 +4,7 @@
 	<br>
 	<v-main>
 		<v-container>
-			<div class="justify-center w-screen h-screen ">
+			<div class="justify-center w-screen h-screen">
 				<div class="d-flex justify-space-between">
 					<!-- SEARCH BAR -->
 					<div class="d-flex justify-center w-75">
@@ -12,7 +12,7 @@
 					</div>
 					<!-- NEW STUDENT BUTTON -->
 					<div class="">
-						<v-btn color="primary" dark class="h-75">Cadastrar Aluno</v-btn>
+						<v-btn color="primary" dark class="h-75" to="createStudent">Cadastrar Aluno</v-btn>
 					</div>
 				</div>
 				<br>
