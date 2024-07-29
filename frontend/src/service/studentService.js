@@ -11,7 +11,7 @@ export const createStudent = async (student) => {
 
 
 export const editStudent = async (student) => {
-	const response = await axios.put(`students/${student.value.id}`, student.value, {
+	const response = await axios.put(`students/${student.id}`, student, {
 		headers: {
 			'Content-Type': 'application/json',
 		},

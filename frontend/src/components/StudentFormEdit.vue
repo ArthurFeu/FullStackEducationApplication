@@ -15,8 +15,9 @@
                     variant="outlined"
                     v-model="localStudent.name"
                     label="Informe o nome completo do aluno"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidName]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -37,8 +38,9 @@
                     variant="outlined"
                     v-model="localStudent.email"
                     label="Informe um email válido"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidEmail]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -59,8 +61,9 @@
                     variant="outlined"
                     v-model="localStudent.ra"
                     label="Informe o Registro Acadêmico"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidRA]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -81,8 +84,9 @@
                     variant="outlined"
                     v-model="localStudent.cpf"
                     label="Informe o número do documento"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidCPF]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -103,6 +107,7 @@
 import { ref, watch } from 'vue';
 import { useToast } from 'vue-toastification';
 import { editStudent } from '@/service/studentService';
+import { isValidEmail, isValidName, isValidCPF, isValidRA } from '@/service/validations';
 
 const props = defineProps({
   student: {
@@ -122,13 +127,13 @@ const form = ref(null);
 const submit = async () => {
   if (valid.value) {
     try {
-		const newStudent = editStudent(localStudent.value);
+		const newStudent = await editStudent(localStudent.value);
 		console.log('Student updated: ', newStudent);
 		toast.success('Estudante atualizado com sucesso!');
 
 		// clear and reset the form
 		localStudent.value = { name: '', email: '', ra: '', cpf: '', id: null };
-		form.value.resetValidation();
+    form.value.reset();
 
 		await new Promise(resolve => setTimeout(resolve, 2500));
 		window.location.href = '/students';

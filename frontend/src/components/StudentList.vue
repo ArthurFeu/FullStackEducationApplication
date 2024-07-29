@@ -37,7 +37,7 @@ const router = useRouter();
 
 const fetchStudents = async () => {
   try {
-    students.value = getAllStudents();
+    students.value = await getAllStudents();
   } catch (error) {
     console.error('There was an error fetching the students:', error);
   }

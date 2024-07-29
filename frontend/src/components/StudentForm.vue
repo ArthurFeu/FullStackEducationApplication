@@ -15,8 +15,9 @@
                     variant="outlined"
                     v-model="fullname"
                     label="Informe o nome completo do aluno"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidName]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -37,8 +38,9 @@
                     variant="outlined"
                     v-model="email"
                     label="Informe um email válido"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidEmail]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -59,8 +61,9 @@
                     variant="outlined"
                     v-model="ra"
                     label="Informe o Registro Acadêmico"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidRA]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -81,8 +84,9 @@
                     variant="outlined"
                     v-model="cpf"
                     label="Informe o número do documento"
-                    hide-details
+                    hide-details="auto"
                     required
+                    :rules="[isValidCPF]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -102,7 +106,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
-import createStudent from '@/pages/createStudent.vue';
+import { createStudent } from '@/service/studentService';
+import { isValidEmail, isValidName, isValidCPF, isValidRA } from '@/service/validations';
 
 const valid = ref(false);
 const toast = useToast();
@@ -113,7 +118,7 @@ const ra = ref('');
 const cpf = ref('');
 
 const submit = async () => {
-  if (valid.value) {
+  if (form.value.validate()) {
     const newStudent = {
       name: fullname.value,
       email: email.value,
@@ -125,13 +130,7 @@ const submit = async () => {
       const createdStudent = await createStudent(newStudent);
       console.log('Student created: ', createdStudent);
       
-      // clear and reset the form
-      fullname.value = '';
-      email.value = '';
-      ra.value = '';
-      cpf.value = '';
-      form.value.resetValidation();
-
+      form.value.reset();
       toast.success('Estudante criado com sucesso!');
       await new Promise(resolve => setTimeout(resolve, 2500));
       window.location.reload();
