@@ -7,5 +7,11 @@
 </template>
 
 <script setup>
-  //
+
+import axios from 'axios'
+
+axios.get("students").then(response => {
+  console.log(response.data)
+})
+
 </script>
