@@ -1,13 +1,12 @@
 <template>
-	<v-card-title>Cadastro de Aluno</v-card-title>
-	<v-form v-model="valid">
-	<v-container>
+  <v-form v-model="valid">
+    <v-container>
       <v-row>
         <!-- NAME -->
         <v-col cols="12">
           <v-card>
             <v-row>
-				<v-col class="d-flex align-center">
+              <v-col class="d-flex align-center">
                 <v-card-title class="text-center">Nome</v-card-title>
               </v-col>
               <v-col cols="8">
@@ -103,10 +102,12 @@
 </template>
 
 <script>
-export default {
-name: 'StudentForm',
+import axios from 'axios';
 
-data: () => ({
+export default {
+  name: 'StudentForm',
+  
+  data: () => ({
 	valid: false,
 	fullname: '',
 	email: '',
@@ -129,5 +130,39 @@ data: () => ({
 	],
 
 	}),
-}
+
+  methods: {
+    async submit() {
+      if (this.valid) {
+        const newStudent = {
+          name: this.fullname,
+          email: this.email,
+          ra: this.ra,
+          cpf: this.cpf,
+        };
+
+        try {
+          const response = await axios.post('students', newStudent, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          console.log('Student created: ', response.data);
+
+          // Clear and redefine the form
+          this.fullname = '';
+          this.email = '';
+          this.ra = '';
+          this.cpf = '';
+
+          this.$refs.form.resetValidation();
+        } catch (error) {
+          console.error('Error while creating new student: ', error);
+        }
+      } else {
+        console.error('Invalid form');
+      }
+    },
+  },
+};
 </script>

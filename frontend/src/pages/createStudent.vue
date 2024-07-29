@@ -5,6 +5,7 @@
 		<v-main>
 			<v-container>
 				<div class="w-screen h-screen border rounded-lg">
+					<v-card-title>Cadastro de Aluno</v-card-title>
 					<StudentForm />
 				</div>
 			</v-container>

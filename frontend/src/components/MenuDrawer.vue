@@ -14,8 +14,8 @@
 	<v-navigation-drawer v-model="drawer" color="primary" class="align-center">
 		<v-list-item prepend-icon="mdi-home" link title="Home" to="/"></v-list-item>
 		<v-list-item prepend-icon="mdi-account-school" link title="Alunos" to="/students"></v-list-item>
-		<v-list-item prepend-icon="mdi-school" link title="Cursos"></v-list-item>
-		<v-list-item prepend-icon="mdi-town-hall" link title="Escolas"></v-list-item>
+		<!-- <v-list-item prepend-icon="mdi-school" link title="Cursos"></v-list-item>
+		<v-list-item prepend-icon="mdi-town-hall" link title="Escolas"></v-list-item> -->
 	</v-navigation-drawer>
 </template>
 

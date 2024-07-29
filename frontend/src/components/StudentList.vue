@@ -29,6 +29,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
+// reative reference to the students array
 const students = ref([]);
 
 const fetchStudents = async () => {
@@ -40,6 +41,7 @@ const fetchStudents = async () => {
   }
 };
 
+// fetch students when the component is mounted
 onMounted(() => {
   fetchStudents();
 });
