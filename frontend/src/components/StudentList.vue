@@ -26,18 +26,18 @@
 </template>
 
 <script setup>
+
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
 import StudentDelete from '@/components/StudentDelete.vue';
 import { useRouter } from 'vue-router';
+import { getAllStudents } from '@/service/studentService';
 
 const students = ref([]);
 const router = useRouter();
 
 const fetchStudents = async () => {
   try {
-    const response = await axios.get('students');
-    students.value = response.data;
+    students.value = getAllStudents();
   } catch (error) {
     console.error('There was an error fetching the students:', error);
   }

@@ -19,7 +19,7 @@
         <v-spacer></v-spacer>
         <v-btn
           text="Sim, desejo excluir."
-          @click="deleteStudent(isActive)"
+          @click="deleteStudentDialog(isActive)"
         ></v-btn>
         <v-btn color="error"
           text="Cancelar"
@@ -33,8 +33,8 @@
 
 <script>
   import { ref } from 'vue';
-  import axios from 'axios';
   import { useToast } from 'vue-toastification';
+  import { deleteStudent } from '@/service/studentService';
 
 
   export default {
@@ -49,11 +49,12 @@
       const dialog = ref(false);
       const toast = useToast();
 
-      const deleteStudent = async (isActive) => {
+      const deleteStudentDialog = async (isActive) => {
         try {
-          await axios.delete(`students/${props.studentId}`);
+          const deletedStudent = await deleteStudent(props.studentId);
           dialog.value = false;
           isActive.value = false;
+          console.log('Student deleted:', deletedStudent);
           toast.success('Estudante excluído com sucesso!');
           
           await new Promise(resolve => setTimeout(resolve, 2500));
@@ -66,7 +67,7 @@
 
       return {
         dialog,
-        deleteStudent,
+        deleteStudentDialog,
       };
     },
   };

@@ -101,8 +101,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
 import { useToast } from 'vue-toastification';
+import createStudent from '@/pages/createStudent.vue';
 
 const valid = ref(false);
 const toast = useToast();
@@ -122,13 +122,9 @@ const submit = async () => {
     };
 
     try {
-      const response = await axios.post('students', newStudent, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log('Student created: ', response.data);
-
+      const createdStudent = await createStudent(newStudent);
+      console.log('Student created: ', createdStudent);
+      
       // clear and reset the form
       fullname.value = '';
       email.value = '';

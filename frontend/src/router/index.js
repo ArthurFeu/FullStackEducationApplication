@@ -1,18 +1,16 @@
-// router/index.ts
-
 import { createRouter, createWebHistory } from 'vue-router';
-import { routes } from 'vue-router/auto-routes'; // Rotas automáticas
-import EditStudentPage from '@/pages/editStudent.vue'; // Caminho para a página de edição
+import { routes } from 'vue-router/auto-routes';
+import EditStudentPage from '@/pages/editStudent.vue'; // edit student route
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    ...routes, // Rotas automáticas
+    ...routes, // automatic routes
     {
-      path: '/editStudent/:studentId',
+      path: '/editStudent/:studentId', // now I can access the studentId in the editStudent page
       name: 'EditStudent',
       component: EditStudentPage,
-      props: true, // Passa o parâmetro como prop
+      props: true,
     },
   ],
 });

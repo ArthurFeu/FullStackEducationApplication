@@ -101,8 +101,8 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import axios from 'axios';
 import { useToast } from 'vue-toastification';
+import { editStudent } from '@/service/studentService';
 
 const props = defineProps({
   student: {
@@ -122,12 +122,8 @@ const form = ref(null);
 const submit = async () => {
   if (valid.value) {
     try {
-		const response = await axios.put(`students/${localStudent.value.id}`, localStudent.value, {
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		});
-		console.log('Student updated: ', response.data);
+		const newStudent = editStudent(localStudent.value);
+		console.log('Student updated: ', newStudent);
 		toast.success('Estudante atualizado com sucesso!');
 
 		// clear and reset the form
