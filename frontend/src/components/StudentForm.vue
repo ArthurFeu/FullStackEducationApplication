@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid">
+  <v-form v-model="valid" ref="form">
     <v-container>
       <v-row>
         <!-- NAME -->
@@ -14,7 +14,6 @@
                   <v-text-field
                     variant="outlined"
                     v-model="fullname"
-                    :rules="nameRules"
                     label="Informe o nome completo do aluno"
                     hide-details
                     required
@@ -37,7 +36,6 @@
                   <v-text-field
                     variant="outlined"
                     v-model="email"
-                    :rules="emailRules"
                     label="Informe um email válido"
                     hide-details
                     required
@@ -60,7 +58,6 @@
                   <v-text-field
                     variant="outlined"
                     v-model="ra"
-                    :rules="raRules"
                     label="Informe o Registro Acadêmico"
                     hide-details
                     required
@@ -83,7 +80,6 @@
                   <v-text-field
                     variant="outlined"
                     v-model="cpf"
-                    :rules="cpfRules"
                     label="Informe o número do documento"
                     hide-details
                     required
@@ -97,72 +93,59 @@
     </v-container>
   </v-form>
   <div class="d-flex justify-center">
-    <v-btn color="primary" @click="submit">Cadastrar</v-btn>
+    <v-btn color="primary" @click="submit">Enviar</v-btn>
+    &nbsp;
+    <v-btn color="error" to="students">Cancelar</v-btn>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import axios from 'axios';
+import { useToast } from 'vue-toastification';
 
-export default {
-  name: 'StudentForm',
-  
-  data: () => ({
-	valid: false,
-	fullname: '',
-	email: '',
-	ra: '',
-	cpf: '',
+const valid = ref(false);
+const toast = useToast();
 
-	// TODO: Add validation rules
+const fullname = ref('');
+const email = ref('');
+const ra = ref('');
+const cpf = ref('');
 
-	nameRules: [
-		value => !!value,
-	],
-	emailRules: [
-		value => !!value,
-	],
-	raRules: [
-		value => !!value,
-	],
-	cpfRules: [
-		value => !!value,
-	],
+const submit = async () => {
+  if (valid.value) {
+    const newStudent = {
+      name: fullname.value,
+      email: email.value,
+      ra: ra.value,
+      cpf: cpf.value,
+    };
 
-	}),
+    try {
+      const response = await axios.post('students', newStudent, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Student created: ', response.data);
 
-  methods: {
-    async submit() {
-      if (this.valid) {
-        const newStudent = {
-          name: this.fullname,
-          email: this.email,
-          ra: this.ra,
-          cpf: this.cpf,
-        };
+      // clear and reset the form
+      fullname.value = '';
+      email.value = '';
+      ra.value = '';
+      cpf.value = '';
+      form.value.resetValidation();
 
-        try {
-          const response = await axios.post('students', newStudent, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          console.log('Student created: ', response.data);
-
-          // Clear and redefine the form
-          this.fullname = '';
-          this.email = '';
-          this.ra = '';
-          this.cpf = '';
-
-          this.$refs.form.resetValidation();
-        } catch (error) {
-          console.error('Error while creating new student: ', error);
-        }
-      } else {
-        console.error('Invalid form');
-      }
-    },
-  },
+      toast.success('Estudante criado com sucesso!');
+      await new Promise(resolve => setTimeout(resolve, 2500));
+      window.location.reload();
+    } catch (error) {
+      console.error('Error while creating new student: ', error);
+    }
+  } else {
+    console.error('Invalid form');
+  }
 };
+
+const form = ref(null);
 </script>

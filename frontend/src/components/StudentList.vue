@@ -26,24 +26,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import StudentDelete from '@/components/StudentDelete.vue';
+  import { ref, onMounted } from 'vue';
+  import axios from 'axios';
+  import StudentDelete from '@/components/StudentDelete.vue';
 
-// reative reference to the students array
-const students = ref([]);
+  // reative reference to the students array
+  const students = ref([]);
 
-const fetchStudents = async () => {
-  try {
-    const response = await axios.get('students');
-    students.value = response.data;
-  } catch (error) {
-    console.error('There was an error fetching the students:', error);
-  }
-};
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get('students');
+      students.value = response.data;
+    } catch (error) {
+      console.error('There was an error fetching the students:', error);
+    }
+  };
 
-// fetch students when the component is mounted
-onMounted(() => {
-  fetchStudents();
-});
+  // fetch students when the component is mounted
+  onMounted(() => {
+    fetchStudents();
+  });
 </script>

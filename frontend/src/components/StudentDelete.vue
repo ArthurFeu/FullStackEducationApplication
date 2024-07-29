@@ -32,40 +32,40 @@
 </template>
 
 <script>
-import { ref } from 'vue';
-import axios from 'axios';
-import { useToast } from 'vue-toastification';
+  import { ref } from 'vue';
+  import axios from 'axios';
+  import { useToast } from 'vue-toastification';
 
 
-export default {
-  name: 'StudentDelete',
-  props: {
-    studentId: {
-      type: Number,
-      required: true,
+  export default {
+    name: 'StudentDelete',
+    props: {
+      studentId: {
+        type: Number,
+        required: true,
+      },
     },
-  },
-  setup(props) {
-    const dialog = ref(false);
-    const toast = useToast();
+    setup(props) {
+      const dialog = ref(false);
+      const toast = useToast();
 
-    const deleteStudent = async () => {
-      try {
-        await axios.delete(`students/${props.studentId}`);
-        dialog.value = false;
-        toast.success('Estudante excluído com sucesso!');
-        await new Promise(resolve => setTimeout(resolve, 2500));
-        window.location.reload();
-      } catch (error) {
-        console.error('There was an error deleting the student:', error);
-        toast.error('Ocorreu um erro ao excluir o estudante.');
-      }
-    };
+      const deleteStudent = async () => {
+        try {
+          await axios.delete(`students/${props.studentId}`);
+          dialog.value = false;
+          toast.success('Estudante excluído com sucesso!');
+          await new Promise(resolve => setTimeout(resolve, 2500));
+          window.location.reload();
+        } catch (error) {
+          console.error('There was an error deleting the student:', error);
+          toast.error('Ocorreu um erro ao excluir o estudante.');
+        }
+      };
 
-    return {
-      dialog,
-      deleteStudent,
-    };
-  },
-};
+      return {
+        dialog,
+        deleteStudent,
+      };
+    },
+  };
 </script>
