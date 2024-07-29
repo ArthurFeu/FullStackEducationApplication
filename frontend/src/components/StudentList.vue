@@ -16,7 +16,7 @@
             <td>
               <v-btn color="primary" text>Editar</v-btn>
               &nbsp;
-              <v-btn color="error" text>Excluir</v-btn>
+              <StudentDelete :studentId="student.id" />
             </td>
           </tr>
         </tbody>
@@ -28,6 +28,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import StudentDelete from '@/components/StudentDelete.vue';
 
 // reative reference to the students array
 const students = ref([]);
