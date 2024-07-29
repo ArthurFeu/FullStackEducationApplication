@@ -19,7 +19,7 @@
         <v-spacer></v-spacer>
         <v-btn
           text="Sim, desejo excluir."
-          @click="deleteStudent"
+          @click="deleteStudent(isActive)"
         ></v-btn>
         <v-btn color="error"
           text="Cancelar"
@@ -49,11 +49,13 @@
       const dialog = ref(false);
       const toast = useToast();
 
-      const deleteStudent = async () => {
+      const deleteStudent = async (isActive) => {
         try {
           await axios.delete(`students/${props.studentId}`);
           dialog.value = false;
+          isActive.value = false;
           toast.success('Estudante excluído com sucesso!');
+          
           await new Promise(resolve => setTimeout(resolve, 2500));
           window.location.reload();
         } catch (error) {

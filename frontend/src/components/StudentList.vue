@@ -14,7 +14,7 @@
             <td>{{ student.name }}</td>
             <td>{{ student.cpf }}</td>
             <td>
-              <v-btn color="primary" text>Editar</v-btn>
+              <v-btn color="primary" text @click="editStudent(student.id)">Editar</v-btn>
               &nbsp;
               <StudentDelete :studentId="student.id" />
             </td>
@@ -26,24 +26,28 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue';
-  import axios from 'axios';
-  import StudentDelete from '@/components/StudentDelete.vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import StudentDelete from '@/components/StudentDelete.vue';
+import { useRouter } from 'vue-router';
 
-  // reative reference to the students array
-  const students = ref([]);
+const students = ref([]);
+const router = useRouter();
 
-  const fetchStudents = async () => {
-    try {
-      const response = await axios.get('students');
-      students.value = response.data;
-    } catch (error) {
-      console.error('There was an error fetching the students:', error);
-    }
-  };
+const fetchStudents = async () => {
+  try {
+    const response = await axios.get('students');
+    students.value = response.data;
+  } catch (error) {
+    console.error('There was an error fetching the students:', error);
+  }
+};
 
-  // fetch students when the component is mounted
-  onMounted(() => {
-    fetchStudents();
-  });
+const editStudent = (studentId) => {
+  router.push({ name: 'EditStudent', params: { studentId } });
+};
+
+onMounted(() => {
+  fetchStudents();
+});
 </script>

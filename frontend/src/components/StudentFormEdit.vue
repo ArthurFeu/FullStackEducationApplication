@@ -1,0 +1,150 @@
+<template>
+  <v-form v-model="valid" ref="form">
+    <v-container>
+      <v-row>
+        <!-- NAME -->
+        <v-col cols="12">
+          <v-card>
+            <v-row>
+              <v-col class="d-flex align-center">
+                <v-card-title class="text-center">Nome</v-card-title>
+              </v-col>
+              <v-col cols="8">
+                <v-card-text>
+                  <v-text-field
+                    variant="outlined"
+                    v-model="localStudent.name"
+                    label="Informe o nome completo do aluno"
+                    hide-details
+                    required
+                  ></v-text-field>
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+
+        <!-- EMAIL -->
+        <v-col cols="12">
+          <v-card>
+            <v-row>
+              <v-col class="d-flex align-center">
+                <v-card-title>Email</v-card-title>
+              </v-col>
+              <v-col cols="8">
+                <v-card-text>
+                  <v-text-field
+                    variant="outlined"
+                    v-model="localStudent.email"
+                    label="Informe um email válido"
+                    hide-details
+                    required
+                  ></v-text-field>
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+
+        <!-- RA -->
+        <v-col cols="12">
+          <v-card>
+            <v-row>
+              <v-col class="d-flex align-center">
+                <v-card-title>RA</v-card-title>
+              </v-col>
+              <v-col cols="8">
+                <v-card-text>
+                  <v-text-field
+                    variant="outlined"
+                    v-model="localStudent.ra"
+                    label="Informe o Registro Acadêmico"
+                    hide-details
+                    required
+                  ></v-text-field>
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+
+        <!-- CPF -->
+        <v-col cols="12">
+          <v-card>
+            <v-row>
+              <v-col class="d-flex align-center">
+                <v-card-title>CPF</v-card-title>
+              </v-col>
+              <v-col cols="8">
+                <v-card-text>
+                  <v-text-field
+                    variant="outlined"
+                    v-model="localStudent.cpf"
+                    label="Informe o número do documento"
+                    hide-details
+                    required
+                  ></v-text-field>
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
+  <div class="d-flex justify-center">
+    <v-btn color="primary" @click="submit">Enviar</v-btn>
+    &nbsp;
+    <v-btn color="error" to="../students/">Cancelar</v-btn>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from 'vue';
+import axios from 'axios';
+import { useToast } from 'vue-toastification';
+
+const props = defineProps({
+  student: {
+    type: Object,
+    required: true,
+  },
+});
+
+const valid = ref(false);
+const toast = useToast();
+
+// clone to edit locally first
+const localStudent = ref({ ...props.student });
+
+const form = ref(null);
+
+const submit = async () => {
+  if (valid.value) {
+    try {
+		const response = await axios.put(`students/${localStudent.value.id}`, localStudent.value, {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		});
+		console.log('Student updated: ', response.data);
+		toast.success('Estudante atualizado com sucesso!');
+
+		// clear and reset the form
+		localStudent.value = { name: '', email: '', ra: '', cpf: '', id: null };
+		form.value.resetValidation();
+
+		await new Promise(resolve => setTimeout(resolve, 2500));
+		window.location.href = '/students';
+    } catch (error) {
+      console.error('Error while editing student: ', error);
+    }
+  } else {
+    console.error('Invalid form');
+  }
+};
+
+watch(() => props.student, (newStudent) => {
+  localStudent.value = { ...newStudent };
+});
+</script>
