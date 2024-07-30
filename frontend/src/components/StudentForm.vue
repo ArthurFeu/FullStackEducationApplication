@@ -17,7 +17,7 @@
                     label="Informe o nome completo do aluno"
                     hide-details="auto"
                     required
-                    :rules="[isValidName]"
+                    :rules="[fieldRequired, isValidName]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -40,7 +40,7 @@
                     label="Informe um email válido"
                     hide-details="auto"
                     required
-                    :rules="[isValidEmail]"
+                    :rules="[fieldRequired, isValidEmail]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -63,7 +63,7 @@
                     label="Informe o Registro Acadêmico"
                     hide-details="auto"
                     required
-                    :rules="[isValidRA]"
+                    :rules="[fieldRequired, isValidRA]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -86,7 +86,7 @@
                     label="Informe o número do documento"
                     hide-details="auto"
                     required
-                    :rules="[isValidCPF]"
+                    :rules="[fieldRequired, isValidCPF]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -107,7 +107,7 @@
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { createStudent } from '@/service/studentService';
-import { isValidEmail, isValidName, isValidCPF, isValidRA } from '@/service/validations';
+import { isValidEmail, isValidName, isValidCPF, isValidRA, fieldRequired } from '@/service/validations';
 
 const valid = ref(false);
 const toast = useToast();

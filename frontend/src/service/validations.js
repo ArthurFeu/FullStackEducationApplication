@@ -68,3 +68,7 @@ export const isValidCPFDigits = (cpf) => {
 
 	return true;
 };
+
+export const fieldRequired = (field) => {
+	return field.length > 0 || 'Campo obrigatório';
+}

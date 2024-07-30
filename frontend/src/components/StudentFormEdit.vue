@@ -17,7 +17,7 @@
                     label="Informe o nome completo do aluno"
                     hide-details="auto"
                     required
-                    :rules="[isValidName]"
+                    :rules="[fieldRequired, isValidName]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -40,7 +40,7 @@
                     label="Informe um email válido"
                     hide-details="auto"
                     required
-                    :rules="[isValidEmail]"
+                    :rules="[fieldRequired, isValidEmail]"
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -60,10 +60,10 @@
                   <v-text-field
                     variant="outlined"
                     v-model="localStudent.ra"
-                    label="Informe o Registro Acadêmico"
+                    label="Valor não editável"
                     hide-details="auto"
                     required
-                    :rules="[isValidRA]"
+                    :rules="[fieldRequired, isValidRA]"
                     readonly
                   ></v-text-field>
                 </v-card-text>
@@ -84,11 +84,11 @@
                   <v-text-field
                     variant="outlined"
                     v-model="localStudent.cpf"
-                    label="Informe o número do documento"
+                    label="Valor não editável"
                     hide-details="auto"
                     required
-                    :rules="[isValidCPF]"
-                    readonly 
+                    :rules="[fieldRequired, isValidCPF]"
+                    readonly
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -109,7 +109,7 @@
 import { ref, watch } from 'vue';
 import { useToast } from 'vue-toastification';
 import { editStudent } from '@/service/studentService';
-import { isValidEmail, isValidName, isValidCPF, isValidRA } from '@/service/validations';
+import { isValidEmail, isValidName, isValidCPF, isValidRA, fieldRequired } from '@/service/validations';
 
 const props = defineProps({
   student: {
