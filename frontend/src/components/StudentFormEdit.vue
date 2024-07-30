@@ -110,6 +110,7 @@ import { ref, watch } from 'vue';
 import { useToast } from 'vue-toastification';
 import { editStudent } from '@/service/studentService';
 import { isValidEmail, isValidName, isValidCPF, isValidRA, fieldRequired } from '@/service/validations';
+import { handleErrorWithToastMessage } from '@/service/errorHandler';
 
 const props = defineProps({
   student: {
@@ -145,7 +146,8 @@ const submit = async () => {
 		await new Promise(resolve => setTimeout(resolve, 2500));
 		window.location.href = '/students';
     } catch (error) {
-      console.error('Error while editing student: ', error);
+      handleErrorWithToastMessage(error);
+      console.error('Error while creating new student: ', error);
     }
   } else {
     toast.error('Formulário inválido');

@@ -108,6 +108,7 @@ import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { createStudent } from '@/service/studentService';
 import { isValidEmail, isValidName, isValidCPF, isValidRA, fieldRequired } from '@/service/validations';
+import { handleErrorWithToastMessage } from '@/service/errorHandler';
 
 const valid = ref(false);
 const toast = useToast();
@@ -136,6 +137,7 @@ const submit = async () => {
       await new Promise(resolve => setTimeout(resolve, 2500));
       window.location.reload();
     } catch (error) {
+      handleErrorWithToastMessage(error);
       console.error('Error while creating new student: ', error);
     }
   } else {
