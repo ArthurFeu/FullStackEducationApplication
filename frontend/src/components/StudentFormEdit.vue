@@ -64,6 +64,7 @@
                     hide-details="auto"
                     required
                     :rules="[isValidRA]"
+                    readonly
                   ></v-text-field>
                 </v-card-text>
               </v-col>
@@ -87,6 +88,7 @@
                     hide-details="auto"
                     required
                     :rules="[isValidCPF]"
+                    readonly 
                   ></v-text-field>
                 </v-card-text>
               </v-col>
