@@ -9,7 +9,8 @@
             <td>CPF</td>
             <td>Ações</td>
           </tr>
-          <tr v-for="student in students" :key="student.id">
+          <!-- student filter -->
+          <tr v-for="student in filteredStudents" :key="student.id">
             <td>{{ student.ra }}</td>
             <td>{{ student.name }}</td>
             <td>{{ student.cpf }}</td>
@@ -26,14 +27,14 @@
 </template>
 
 <script setup>
-
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import StudentDelete from '@/components/StudentDelete.vue';
 import { useRouter } from 'vue-router';
 import { getAllStudents } from '@/service/studentService';
 
 const students = ref([]);
 const router = useRouter();
+const props = defineProps(['search']);
 
 const fetchStudents = async () => {
   try {
@@ -47,7 +48,20 @@ const editStudent = (studentId) => {
   router.push({ name: 'EditStudent', params: { studentId } });
 };
 
+// filter for students on search bar
+const filteredStudents = computed(() => {
+  if (!props.search) {
+    return students.value;
+  }
+  return students.value.filter(student => 
+    student.name.toLowerCase().includes(props.search.toLowerCase()) ||
+    student.ra.includes(props.search) ||
+    student.cpf.includes(props.search)
+  );
+});
+
 onMounted(() => {
   fetchStudents();
 });
+
 </script>
