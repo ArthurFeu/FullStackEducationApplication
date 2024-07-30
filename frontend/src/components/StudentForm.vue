@@ -118,6 +118,7 @@ const ra = ref('');
 const cpf = ref('');
 
 const submit = async () => {
+  console.log('Submitting form');
   if (form.value.validate()) {
     const newStudent = {
       name: fullname.value,
@@ -138,6 +139,7 @@ const submit = async () => {
       console.error('Error while creating new student: ', error);
     }
   } else {
+    toast.error('Formulário inválido');
     console.error('Invalid form');
   }
 };

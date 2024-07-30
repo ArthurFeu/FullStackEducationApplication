@@ -127,6 +127,7 @@ const localStudent = ref({ ...props.student });
 const form = ref(null);
 
 const submit = async () => {
+  console.log('Submitting form');
   if (valid.value) {
     try {
 		const newStudent = await editStudent(localStudent.value);
@@ -143,6 +144,7 @@ const submit = async () => {
       console.error('Error while editing student: ', error);
     }
   } else {
+    toast.error('Formulário inválido');
     console.error('Invalid form');
   }
 };
