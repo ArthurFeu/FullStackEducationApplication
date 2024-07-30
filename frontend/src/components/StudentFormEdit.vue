@@ -101,7 +101,7 @@
   <div class="d-flex justify-center">
     <v-btn color="primary" @click="submit">Enviar</v-btn>
     &nbsp;
-    <v-btn color="error" to="../students/">Cancelar</v-btn>
+    <v-btn color="error" @click="cancel">Cancelar</v-btn>
   </div>
 </template>
 
@@ -125,6 +125,10 @@ const toast = useToast();
 const localStudent = ref({ ...props.student });
 
 const form = ref(null);
+
+const cancel = () => {
+  window.location.href = '/students';
+};
 
 const submit = async () => {
   console.log('Submitting form');
