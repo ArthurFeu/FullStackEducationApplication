@@ -119,7 +119,7 @@ const cpf = ref('');
 
 const submit = async () => {
   console.log('Submitting form');
-  if (form.value.validate()) {
+  if (form.value.validate() && fullname.value.length > 0) {
     const newStudent = {
       name: fullname.value,
       email: email.value,
