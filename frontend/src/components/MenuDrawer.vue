@@ -3,6 +3,8 @@
       <v-img
         src="../assets/logo.png"
         contain
+		max-width="100"
+		class="d-flex align-center ml-16"
       ></v-img>
     </v-app-bar>
 
