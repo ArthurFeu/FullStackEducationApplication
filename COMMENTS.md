@@ -58,7 +58,7 @@ https://github.com/ArthurFeu/ColetaDeSangue
 
 ## O que Você Melhoraria se Tivesse Mais Tempo
 
-Com mais tempo eu iria mais à fundo na solução do projeto, implementando o restante do CRUD, um sistema de logins para usuários, máscaras no preenchimento de campos e a conteinerização do projeto para facilitar o uso por outros desenvolvedores. Também teria feito mais testes unitários, buscando por uma line-coverage ou branch-coverage de pelo menos 80%. Aplicaria também mutation e fuzzing testes, para garantir uma maior eficácia. Além disso, na criação do DB, optei por já criar cursos e escolas (escola de engenharia ou de sistemas, por exemplo) e implementar o backend para todo o sistema, mas não houve tempo suficiente para implementar a solução completa no frontend. 
+Com mais tempo eu iria mais a fundo na solução do projeto, implementando o restante do CRUD, um sistema de logins para usuários, máscaras no preenchimento de campos e a conteinerização do projeto para facilitar o uso por outros desenvolvedores. Também teria feito mais testes unitários, buscando por uma line-coverage ou branch-coverage de pelo menos 80%. Aplicaria também mutation e fuzzing testes, para garantir uma maior eficácia. Além disso, na criação do DB, optei por já criar cursos e escolas (escola de engenharia ou de sistemas, por exemplo) e implementar o backend para todo o sistema, mas não houve tempo suficiente para implementar a solução completa no frontend. 
 
 
 Caso tenha interesse, acesse meu repositório com estudos e práticas específicas de testes:
@@ -70,6 +70,6 @@ https://github.com/ArthurFeu/Natural-Language-Processing-/tree/main/PA4%20-%20Ma
 
 ## Quais Requisitos Obrigatórios que Não Foram Entregues
 
-Não acredito que seja um requisito obrigatório, mas apenas uma contextualização do problema (visto que o desafio "consiste em criar uma aplicação para o cadastro de alunos conforme os critérios de aceitação"), porém eu gostaria de ter implementado o sistema de matrícula de alunos. 
+Acredito que nenhum requisito obrigatório não tenha sido entregue. Porém, gostaria de ter implementado o sistema de matrícula de alunos citado na parte de contextualização do problema. 
 
 
